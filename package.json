@@ -1,13 +1,23 @@
 {
   "name": "test-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "server.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
+    "base64url": "^3.0.1",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "fido2-lib": "agektmr/fido2-lib#android-compatible3",
+    "hbs": "^4.1.0",
+    "lowdb": "^1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
   },
   "scripts": {

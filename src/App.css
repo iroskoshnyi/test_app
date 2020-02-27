@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+.App-container {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -26,6 +26,36 @@
 
 .App-link {
   color: #61dafb;
+}
+form {
+  width: 300px;
+  height: auto;
+  background-color: #f7f9fa;
+  padding: 15px 45px;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #58c4d7;
+  border: none;
+  max-width: 112px;
+  font-size: 14px;
+  height: 36px;
+  margin-right: 20px;
+  padding: 0 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: #31b4cb;
+}
+input {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 14px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0 5px;
 }
 
 @keyframes App-logo-spin {
