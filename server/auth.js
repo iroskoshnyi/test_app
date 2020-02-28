@@ -87,13 +87,14 @@ router.post('/username', (req, res) => {
     if (!user) {
       user = {
         username: username,
-        id: base64url.encode(crypto.randomBytes(32), 'user.id'),
+        id: base64url.encode(crypto.randomBytes(32)),
         credentials: []
       }
       db.get('users')
         .push(user)
         .write();
     }
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
     // Set username cookie
     res.cookie('username', username);
     // If sign-in succeeded, redirect to `/home`.
@@ -119,6 +120,7 @@ router.post('/password', (req, res) => {
     res.status(401).json({error: 'Enter username first.'});
     return;
   }
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
 
   res.cookie('signed-in', 'yes');
   res.json({...user, password: req.body.password});
@@ -279,6 +281,7 @@ router.post('/registerRequest', csrfCheck, sessionCheck, async (req, res) => {
     if (cp && (cp == 'none' || cp == 'indirect' || cp == 'direct')) {
       response.attestation = cp;
     }
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
 
     res.json(response);
   } catch (e) {

@@ -3,7 +3,7 @@ import base64url from "base64url";
 export const _fetch = async (path, payload = "") => {
   const headers = {
     "X-Requested-With": "XMLHttpRequest",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json; charset=utf-8"
   };
   const res = await fetch(path, {
     method: "POST",
