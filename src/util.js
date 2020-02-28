@@ -25,14 +25,6 @@ export const registerCredential = async opts => {
     throw new Error("You need User Verifying Platform Authenticator.");
   }
   const options = await _fetch("http://localhost:9999/auth/registerRequest", opts);
-  options.user.id = base64url.decode(options.user.id);
-  options.challenge = base64url.decode(options.challenge);
-
-  if (options.excludeCredentials) {
-    for (let cred of options.excludeCredentials) {
-      cred.id = base64url.decode(cred.id);
-    }
-  }
   const cred = await navigator.credentials.create({
     publicKey: options
   });
