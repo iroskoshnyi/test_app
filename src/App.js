@@ -40,7 +40,8 @@ function App() {
         authenticatorAttachment: 'platform',
         userVerification: 'required',
         requireResidentKey: false
-      }
+      },
+      username: fields.username
     })
       .then(() => {
         console.log('registered')

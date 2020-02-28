@@ -22,6 +22,7 @@ const { coerceToBase64Url,
   coerceToArrayBuffer
 } = require('fido2-lib/lib/utils');
 const fs = require('fs');
+const base64url = require('base64url');
 
 const low = require('lowdb');
 
@@ -86,7 +87,7 @@ router.post('/username', (req, res) => {
     if (!user) {
       user = {
         username: username,
-        id: coerceToBase64Url(crypto.randomBytes(32), 'user.id'),
+        id: base64url.encode(crypto.randomBytes(32), 'user.id'),
         credentials: []
       }
       db.get('users')
@@ -235,7 +236,7 @@ router.post('/registerRequest', csrfCheck, sessionCheck, async (req, res) => {
       id: user.id,
       name: user.username
     };
-    response.challenge = coerceToBase64Url(response.challenge, 'challenge');
+    response.challenge = base64url.encode(response.challenge);
     res.cookie('challenge', response.challenge);
     response.excludeCredentials = [];
     if (user.credentials.length > 0) {
