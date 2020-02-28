@@ -1,4 +1,4 @@
-import base64url from "base64url";
+import base64 from "base64-js";
 
 export const _fetch = async (path, payload = "") => {
   const headers = {
@@ -20,22 +20,30 @@ export const _fetch = async (path, payload = "") => {
   }
 };
 export const registerCredential = async opts => {
-  const UVPAA = await window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-  if (!UVPAA) {
-    throw new Error("You need User Verifying Platform Authenticator.");
-  }
+  // const UVPAA = await window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+  // if (!UVPAA) {
+  //   throw new Error("You need User Verifying Platform Authenticator.");
+  // }
   const options = await _fetch("http://localhost:9999/auth/registerRequest", opts);
+  options.user.id = base64.toByteArray(btoa(options.user.id));
+  options.challenge = base64.toByteArray(btoa(options.challenge));
+
+  if (options.excludeCredentials) {
+    for (let cred of options.excludeCredentials) {
+      cred.id = base64.toByteArray(cred.id);
+    }
+  }
   const cred = await navigator.credentials.create({
     publicKey: options
   });
   const credential = {};
   credential.id = cred.id;
-  credential.rawId = base64url.encode(cred.rawId);
+  credential.rawId = base64.toByteArray(cred.rawId);
   credential.type = cred.type;
 
   if (cred.response) {
-    const clientDataJSON = base64url.encode(cred.response.clientDataJSON);
-    const attestationObject = base64url.encode(cred.response.attestationObject);
+    const clientDataJSON = base64.toByteArray(cred.response.clientDataJSON);
+    const attestationObject = base64.toByteArray(cred.response.attestationObject);
     credential.response = {
       clientDataJSON,
       attestationObject
